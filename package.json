@@ -1,7 +1,8 @@
 {
   "name": "yap_website",
   "scripts": {
-    "build": "postcss main/css/main.css -o static/main.min.css"
+    "build": "postcss main/css/main.css -o static/main.min.css",
+    "watch": "postcss --watch main/css/main.css -o static/main.min.css"
   },
   "repository": {
     "type": "git",
