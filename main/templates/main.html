@@ -2,12 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Hey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Chad's Website</title>
+  <base href="/">
   <link rel="stylesheet" href={% static "main.min.css" %}>
 </head>
-<body>
-  <h1 class="text-4xl font-bold text-center text-blue-500">Hello world!</h1>
+<body class="font-sans flex justify-center">
+  <div class="mx-6 w-full max-w-xl">
+    <div class="my-3">
+      <h1 class="text-2xl font-medium text-center">Chad's Website</h1>
+    </div>
+    <div class="mb-5">
+      <div class="border border-blue-400 rounded-t-lg p-3 bg-blue-100 text-center">Recent Bookmarks on Pinboard</div>
+      <div class="border-r border-l border-b rounded-b-lg border-blue-400 p-3 shadow-lg">
+        {% for bookmark in bookmarks %}
+        <div>{{ bookmark.description }}</div>
+        {% endfor %}
+        <a href="{{ pinboard_profile_url }}">View all my bookmarks at pinboard.in</a>
+      </div>
+    </div>
+    <div class="mb-5">
+      <div class="border border-blue-400 rounded-t-lg p-3 bg-blue-100 text-center">Recent Tracks on Last.fm</div>
+      <div class="border-r border-l border-b rounded-b-lg border-blue-400 p-3 shadow-lg">
+        {% for track in tracks %}
+        <div>{{ track.track }}</div>
+        {% endfor %}
+        <a href="{{ lastfm_profile_url }}">View my listening profile at last.fm</a>
+      </div>
+    </div>
+    <div class="mb-5">
+      <div class="border border-blue-400 rounded-t-lg p-3 bg-blue-100 text-center">Recently Read Articles on Pocket</div>
+      <div class="border-r border-l border-b rounded-b-lg border-blue-400 p-3 shadow-lg">
+        {% for article in articles %}
+        <div>{{ article.resolved_title }}</div>
+        {% endfor %}
+        Viewing all my read articles isn't available at this time.
+      </div>
+    </div>
+  </div>
 </body>
 </html>

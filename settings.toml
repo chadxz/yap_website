@@ -1,0 +1,9 @@
+[default]
+lastfm_api_username = "chadxz"
+lastfm_api_key = ""
+lastfm_api_secret = ""
+lastfm_profile_url = "https://www.last.fm/user/chadxz"
+pinboard_token = ""
+pinboard_profile_url = "https://pinboard.in/u:chadxz"
+pocket_consumer_key = ""
+pocket_access_token = ""
