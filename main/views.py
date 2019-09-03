@@ -2,7 +2,7 @@ from django.shortcuts import render
 from dynaconf import settings
 import pylast
 import pinboard
-from pocket import Pocket, PocketException
+from pocket import Pocket
 
 
 # Create your views here.
