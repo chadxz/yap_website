@@ -3,9 +3,20 @@ BIN=venv/bin
 all: dev
 .PHONY: all
 
-dev: venv node_modules css
+dev: deps
 	$(BIN)/python manage.py runserver
 .PHONY: dev
+
+test: deps
+	$(BIN)/pytest
+.PHONY: test
+
+watchtest: deps
+	$(BIN)/pytest-watch
+.PHONY: watchtest
+
+deps: venv node_modules css
+.PHONY: deps
 
 venv: venv/bin/activate
 .PHONY: venv
