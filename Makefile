@@ -32,8 +32,8 @@ static/main.min.css:
 
 venv/bin/activate:
 	python3 -m venv venv; \
-		venv/bin/pip install --upgrade pip; \
-		venv/bin/pip install -r requirements.txt
+		$(BIN)/pip install --upgrade pip; \
+		$(BIN)/pip install -r requirements.txt
 
 clean:
 	rm -rf node_modules
@@ -41,4 +41,5 @@ clean:
 	rm -rf db.sqlite3
 	rm -rf .pytest_cache
 	rm -rf venv
+	rm -rf .coverage
 .PHONY: clean
