@@ -8,17 +8,14 @@ logger = logging.getLogger('django.main')
 
 class PocketService:
     def __init__(self, consumer_key, access_token):
-        self.consumer_key = consumer_key
-        self.access_token = access_token
-
-    def get_read_articles(self, count=5):
-        pocket = Pocket(
-            consumer_key=self.consumer_key,
-            access_token=self.access_token
+        self.pocket_client = Pocket(
+            consumer_key=consumer_key,
+            access_token=access_token
         )
 
+    def get_read_articles(self, count=5):
         logger.info('fetching pocket articles')
-        pocket_result = pocket.get(
+        pocket_result = self.pocket_client.get(
             state='archive',
             detailType='complete',
             count=count
@@ -33,31 +30,25 @@ class PocketService:
 
 class PinboardService:
     def __init__(self, token):
-        self.token = token
+        self.pinboard_client = Pinboard(token)
 
     def get_bookmarks(self, count):
-        pb = Pinboard(self.token)
-
         logger.info('fetching pinboard posts')
-        pinboard_result = pb.posts.recent()
+        pinboard_result = self.pinboard_client.posts.recent()
 
         return [p for p in pinboard_result['posts'][:count] if p.shared is True]
 
 
 class LastfmService:
     def __init__(self, api_key, api_secret, username):
-        self.api_key = api_key
-        self.api_secret = api_secret
-        self.username = username
-
-    def get_recent_tracks(self, count):
-        lastfm = LastFMNetwork(
-            api_key=self.api_key,
-            api_secret=self.api_secret,
-            username=self.username
+        self.lastfm_client = LastFMNetwork(
+            api_key=api_key,
+            api_secret=api_secret,
+            username=username
         )
 
+    def get_recent_tracks(self, count):
         logger.info('fetching last.fm tracks')
-        user = lastfm.get_authenticated_user()
+        user = self.lastfm_client.get_authenticated_user()
 
         return user.get_recent_tracks(limit=count, cacheable=False)
