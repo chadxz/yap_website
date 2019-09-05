@@ -1,6 +1,7 @@
 from pocket import Pocket
 from pinboard import Pinboard
 from pylast import LastFMNetwork
+from itertools import islice
 import logging
 
 logger = logging.getLogger('django.main')
@@ -17,15 +18,14 @@ class PocketService:
         logger.info('fetching pocket articles')
         pocket_result = self.pocket_client.get(
             state='archive',
-            detailType='complete',
-            count=count
+            detailType='complete'
         )
         all_articles = pocket_result[0]['list']
 
-        return [
+        return list(islice((
             a for a in all_articles.values()
             if 'tags' not in a or 'private' not in a['tags']
-        ]
+        ), count))
 
 
 class PinboardService:
@@ -36,7 +36,9 @@ class PinboardService:
         logger.info('fetching pinboard posts')
         pinboard_result = self.pinboard_client.posts.recent()
 
-        return [p for p in pinboard_result['posts'][:count] if p.shared is True]
+        return list(islice((
+            p for p in pinboard_result['posts'] if p.shared is True
+        ), count))
 
 
 class LastfmService:
