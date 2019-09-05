@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from dynaconf import settings
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -80,6 +82,37 @@ DATABASES = {
     }
 }
 
+# https://docs.djangoproject.com/en/2.2/topics/logging/
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'json': {
+            'format': '%(asctime)s %(levelname)s %(message)s',
+            'class': 'pythonjsonlogger.jsonlogger.JsonFormatter'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
+    },
+    'handlers': {
+        'json': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'json',
+        },
+        'simple': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': [settings.get('log_handler')],
+            'level': settings.get('log_level'),
+        },
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
