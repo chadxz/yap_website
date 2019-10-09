@@ -1,4 +1,6 @@
 from pytest import fixture
+from collections import namedtuple
+from datetime import datetime
 
 
 @fixture
@@ -408,3 +410,73 @@ def twelve_pocket_articles():
              'X-Limit-Key-Remaining': '9996',
              'X-Limit-Key-Reset': '3303', 'X-Source': 'Pocket',
              'P3P': 'policyref="/w3c/p3p.xml", CP="ALL CURa ADMa DEVa OUR IND UNI COM NAV INT STA PRE"'})
+
+
+@fixture
+def eight_pinboard_posts():
+    Bookmark = namedtuple('Bookmark', [
+        'description', 'url', 'tags', 'time', 'shared'
+    ])
+
+    return {
+        'date': datetime(2019, 9, 6),
+        'user': 'chadxz',
+        'posts': [
+            Bookmark(
+                description='Google engineering practices - How to do a code review',
+                url='https://google.github.io/eng-practices/review/reviewer/',
+                tags=['code', 'review', 'Google', 'programming'],
+                time=datetime(2019, 9, 6, 12, 40, 1),
+                shared=True
+            ),
+            Bookmark(
+                description='PEP 8 -- Style Guide for Python Code | Python.org',
+                url='https://www.python.org/dev/peps/pep-0008/',
+                tags=['python', 'style', 'guide'],
+                time=datetime(2019, 9, 4, 23, 32, 21),
+                shared=True
+            ),
+            Bookmark(
+                description='Google Python Style Guide',
+                url='https://google.github.io/styleguide/pyguide.html',
+                tags=['python', 'style', 'google'],
+                time=datetime(2019, 9, 4, 23, 32, 8),
+                shared=True
+            ),
+            Bookmark(
+                description='Calendar Versioning — CalVer',
+                url='https://calver.org/',
+                tags=['versioning', 'reference', 'calendar'],
+                time=datetime(2019, 9, 4, 22, 21, 49),
+                shared=True
+            ),
+            Bookmark(
+                description='Super Secret Bookmark',
+                url='http://zombo.com',
+                tags=['sekret'],
+                time=datetime(2019, 9, 3, 12, 40, 1),
+                shared=False
+            ),
+            Bookmark(
+                description='pyup.io - Python Dependency Management',
+                url='https://pyup.io/',
+                tags=['python', 'dependency', 'dependencies', 'ci', 'security'],
+                time=datetime(2019, 9, 3, 10, 20, 52),
+                shared=True
+            ),
+            Bookmark(
+                description='Sphinx Documentation Generator',
+                url='https://www.sphinx-doc.org/en/master/index.html',
+                tags=['documentation', 'python'],
+                time=datetime(2019, 9, 2, 2, 8, 16),
+                shared=True
+            ),
+            Bookmark(
+                description='The Python Tutorial',
+                url='https://docs.python.org/3/tutorial/',
+                tags=['programming', 'python', 'tutorial', 'learning'],
+                time=datetime(2019, 8, 31, 23, 58, 4),
+                shared=True
+            )
+        ]
+    }

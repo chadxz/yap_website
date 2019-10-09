@@ -32,7 +32,7 @@ class PinboardService:
     def __init__(self, token):
         self.pinboard_client = Pinboard(token)
 
-    def get_bookmarks(self, count):
+    def get_bookmarks(self, count=5):
         logger.info('fetching pinboard posts')
         pinboard_result = self.pinboard_client.posts.recent()
 
@@ -49,7 +49,7 @@ class LastfmService:
             username=username
         )
 
-    def get_recent_tracks(self, count):
+    def get_recent_tracks(self, count=5):
         logger.info('fetching last.fm tracks')
         user = self.lastfm_client.get_authenticated_user()
 

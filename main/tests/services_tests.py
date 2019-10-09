@@ -32,3 +32,15 @@ class TestPocketService:
             '2675608289', '2712302873', '2485170985', '2121396419', '340082513',
             '2708991016', '2535530830', '2705079041', '2700843201', '2692536740'
         ], "Unexpected result contents"
+
+class TestPinboardService:
+
+    @staticmethod
+    @patch(target="pinboard.Pinboard.posts")
+    def test_defaults(mock_recent, eight_pinboard_posts):
+        mock_recent.return_value = eight_pinboard_posts
+        pinboard_client = PinboardService('fake_token')
+
+        pinboard_client.get_bookmarks()
+
+        mock_recent.assert_called()
