@@ -1,18 +1,16 @@
-BIN=venv/bin
-
 all: dev
 .PHONY: all
 
 dev: deps
-	$(BIN)/python manage.py runserver
+	pipenv run python manage.py runserver
 .PHONY: dev
 
 test: deps
-	$(BIN)/pytest
+	pipenv run pytest
 .PHONY: test
 
 watchtest: deps
-	$(BIN)/pytest-watch
+	pipenv run pytest-watch
 .PHONY: watchtest
 
 deps: venv node_modules css
@@ -31,15 +29,14 @@ static/main.min.css:
 	npm run build
 
 venv/bin/activate:
-	python3 -m venv venv; \
-		$(BIN)/pip install --upgrade pip; \
-		$(BIN)/pip install -r requirements.txt
+	pip3 install pipenv
+	pipenv install
 
 clean:
 	rm -rf node_modules
 	rm -rf static/main.min.css
 	rm -rf db.sqlite3
 	rm -rf .pytest_cache
-	rm -rf venv
 	rm -rf .coverage
+	pipenv --rm
 .PHONY: clean
